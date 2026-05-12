@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deliveroo for Work — Plus for Business Activated</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: #f5f4f0; color: #1a1a1a; font-size: 14px; }
+
+/* ─── HEADER ─── */
+.portal-header {
+  background: #006460; height: 70px;
+  display: flex; align-items: center; padding: 0 24px;
+}
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+.logo-mark {
+  width: 38px; height: 38px; border-radius: 5px;
+  background: rgba(255,255,255,0.18);
+  display: flex; align-items: center; justify-content: center;
+}
+.logo-text .t1 { color: white; font-size: 15px; font-weight: 800; letter-spacing: -0.3px; display: block; }
+.logo-text .t2 { color: rgba(255,255,255,0.8); font-size: 11px; display: block; }
+.portal-nav { display: flex; align-items: center; gap: 2px; margin: 0 auto; }
+.nav-link {
+  display: flex; align-items: center; gap: 6px;
+  color: rgba(255,255,255,0.65); font-size: 13.5px;
+  padding: 0 14px; height: 70px;
+  text-decoration: none; white-space: nowrap;
+  border-bottom: 3px solid transparent;
+}
+.nav-link:hover { color: rgba(255,255,255,0.9); }
+.nav-link.active { color: white; font-weight: 600; border-bottom-color: #00CCBC; }
+.portal-user { display: flex; align-items: center; gap: 9px; flex-shrink: 0; color: white; }
+.portal-user-icon {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  display: flex; align-items: center; justify-content: center;
+}
+.pun { font-size: 13px; font-weight: 600; }
+.puc { font-size: 11px; opacity: 0.72; }
+
+/* ─── BANNER ─── */
+.portal-banner {
+  background: #008880; padding: 10px 24px;
+  display: flex; align-items: center; gap: 14px;
+}
+.banner-icon-wrap {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+.banner-title { color: #ccfff9; font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+.banner-body  { color: rgba(255,255,255,0.82); font-size: 12.5px; line-height: 1.45; }
+
+/* ─── PAGE ─── */
+.page { max-width: 700px; margin: 0 auto; padding: 52px 24px 80px; }
+
+.success-card {
+  background: white; border: 1px solid #e5e5e5;
+  border-radius: 14px; overflow: hidden;
+}
+
+.success-head {
+  background: #006460; padding: 36px 40px 32px;
+  text-align: center;
+}
+.tick-circle {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: #00CCBC;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 18px;
+}
+.success-head h1 { color: white; font-size: 22px; font-weight: 800; margin-bottom: 10px; }
+.success-head p  { color: rgba(255,255,255,0.8); font-size: 14px; line-height: 1.55; max-width: 440px; margin: 0 auto; }
+
+.success-body { padding: 32px 40px; }
+
+.summary-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 14px; margin-bottom: 30px;
+}
+.summary-item {
+  background: #f8f8f6; border-radius: 10px;
+  padding: 16px 12px; text-align: center;
+}
+.si-val { font-size: 22px; font-weight: 800; color: #006460; display: block; margin-bottom: 5px; }
+.si-lab { font-size: 12px; color: #888; line-height: 1.4; display: block; }
+
+.next-title { font-size: 15px; font-weight: 700; margin-bottom: 16px; }
+
+.next-list { margin-bottom: 28px; }
+.next-item {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 12px 0; border-bottom: 1px solid #f0f0f0;
+}
+.next-item:last-child { border-bottom: none; }
+.next-num {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: #e3f8f5; color: #006460;
+  font-size: 12px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.ni-title { font-size: 13.5px; font-weight: 600; margin-bottom: 3px; }
+.ni-desc  { font-size: 12.5px; color: #777; line-height: 1.5; }
+
+.billing-note {
+  background: #f0fefd; border: 1.5px solid #00CCBC;
+  border-radius: 10px; padding: 14px 18px;
+  display: flex; gap: 12px; align-items: flex-start;
+  margin-bottom: 28px; font-size: 13px; color: #444; line-height: 1.55;
+}
+.billing-note-icon { color: #00CCBC; flex-shrink: 0; font-size: 18px; margin-top: 1px; }
+.billing-note strong { color: #006460; }
+
+.btn-row { display: flex; gap: 12px; justify-content: center; }
+.btn-primary {
+  background: #00CCBC; color: #004d47;
+  border: none; padding: 13px 32px; border-radius: 8px;
+  font-size: 14px; font-weight: 800; cursor: pointer;
+}
+.btn-primary:hover { background: #00b5a6; }
+.btn-secondary {
+  background: white; color: #555;
+  border: 1px solid #ddd; padding: 12px 24px;
+  border-radius: 8px; font-size: 13.5px; cursor: pointer;
+}
+
+.chat-fab {
+  position: fixed; bottom: 28px; right: 28px;
+  width: 46px; height: 46px; background: #00CCBC;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+}
+</style>
+</head>
+<body>
+
+<!-- Portal Header -->
+<header class="portal-header">
+  <a class="logo" href="#">
+    <div class="logo-mark">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3C7 3 3 7 3 12s4 9 9 9 9-4 9-9-4-9-9-9zm0 4c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm0 10c-2.5 0-4.7-1.3-6-3.2.03-2 4-3.1 6-3.1s5.97 1.1 6 3.1C16.7 15.7 14.5 17 12 17z" fill="white"/></svg>
+    </div>
+    <div class="logo-text">
+      <span class="t1">deliveroo</span>
+      <span class="t2">for work</span>
+    </div>
+  </a>
+  <nav class="portal-nav">
+    <a class="nav-link" href="mockup-users-tab.html">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Users
+    </a>
+    <a class="nav-link" href="#">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      User groups
+    </a>
+    <a class="nav-link" href="#">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>
+      Meal allowances
+    </a>
+    <a class="nav-link" href="#">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+      Catering
+    </a>
+    <a class="nav-link" href="#">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      Orders
+    </a>
+    <a class="nav-link active" href="#">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      Plus for Business
+    </a>
+  </nav>
+  <div class="portal-user">
+    <div class="portal-user-icon">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </div>
+    <div>
+      <div class="pun">Olivia Jones &#9660;</div>
+      <div class="puc">McKinsey UK</div>
+    </div>
+  </div>
+</header>
+
+<!-- Banner -->
+<div class="portal-banner">
+  <div class="banner-icon-wrap">🚀</div>
+  <div>
+    <div class="banner-title">Exciting News</div>
+    <div class="banner-body">You can now add an expense memo to meal allowances. Employees can add a purchase note to explain the purpose of their order — set it as optional or required when creating or editing an allowance.</div>
+  </div>
+</div>
+
+<!-- Page -->
+<div class="page">
+  <div class="success-card">
+
+    <div class="success-head">
+      <div class="tick-circle">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h1>Plus for Business activated</h1>
+      <p id="act-desc">Plus Gold has been switched on for the McKinsey &amp; Company group. Your team will receive an activation email shortly.</p>
+    </div>
+
+    <div class="success-body">
+
+      <div class="summary-grid">
+        <div class="summary-item">
+          <span class="si-val" id="act-enrolled">1,264</span>
+          <span class="si-lab">Employees enrolled</span>
+        </div>
+        <div class="summary-item">
+          <span class="si-val">£3.59</span>
+          <span class="si-lab">Per user / month</span>
+        </div>
+        <div class="summary-item">
+          <span class="si-val">Today</span>
+          <span class="si-lab">Activation date</span>
+        </div>
+      </div>
+
+      <div class="next-title">What happens next</div>
+      <div class="next-list">
+        <div class="next-item">
+          <div class="next-num">1</div>
+          <div>
+            <div class="ni-title">Employees receive an activation email</div>
+            <div class="ni-desc">Each enrolled employee will receive an email from Deliveroo for Work inviting them to accept their Plus Gold benefit. Once they tap "Accept invitation", the benefit is linked to their account.</div>
+          </div>
+        </div>
+        <div class="next-item">
+          <div class="next-num">2</div>
+          <div>
+            <div class="ni-title">Plus Gold applies automatically at checkout</div>
+            <div class="ni-desc">From the moment the benefit is accepted, free delivery and reduced service fees apply automatically on all eligible orders — no code or toggle needed.</div>
+          </div>
+        </div>
+        <div class="next-item">
+          <div class="next-num">3</div>
+          <div>
+            <div class="ni-title">New users are enrolled automatically</div>
+            <div class="ni-desc" id="act-step3">Any user added to the McKinsey &amp; Company group after activation will receive their Plus Gold invitation email automatically.</div>
+          </div>
+        </div>
+        <div class="next-item">
+          <div class="next-num">4</div>
+          <div>
+            <div class="ni-title">Manage enrolment at any time</div>
+            <div class="ni-desc">Change groups, pause, or deactivate Plus for Business from this page. You can also manage individual enrolment from the Users tab.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="billing-note">
+        <span class="billing-note-icon">ℹ</span>
+        <div>
+          <strong>Billing starts today.</strong> Your first charge will be prorated to reflect the days remaining in this billing period. The estimated full monthly cost is <strong id="act-cost">£4,537.76</strong>. Charges will appear on a <strong>separate Plus for Business invoice</strong>, sent monthly to your billing contact.
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-primary" onclick="window.location.href='mockup-users-tab.html'">View users</button>
+        <button class="btn-secondary" onclick="window.location.href='mockup-plus-for-business-page.html'">Back to Plus for Business</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="chat-fab">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+</div>
+
+<script>
+(function() {
+  const p = new URLSearchParams(window.location.search);
+  const group = p.get('group') || 'McKinsey & Company group';
+  const users = parseInt(p.get('users') || '1264');
+  const cost  = parseFloat(p.get('cost')  || '4537.76');
+  const fmt   = n => '£' + n.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  document.getElementById('act-enrolled').textContent = users.toLocaleString('en-GB');
+  document.getElementById('act-cost').textContent     = fmt(cost);
+  document.getElementById('act-desc').textContent     = 'Plus Gold has been switched on for the ' + group + '. Your team will receive an activation email shortly.';
+  document.getElementById('act-step3').textContent    = 'Any user added to the ' + group + ' after activation will receive their Plus Gold invitation email automatically.';
+})();
+</script>
+</body>
+</html>

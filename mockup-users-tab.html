@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deliveroo for Work — Users</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: #f5f4f0; color: #1a1a1a; font-size: 14px; }
+
+/* ─── HEADER ─── */
+.portal-header {
+  background: #006460; height: 70px;
+  display: flex; align-items: center; padding: 0 24px;
+}
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+.logo-mark {
+  width: 38px; height: 38px; border-radius: 5px;
+  background: rgba(255,255,255,0.18);
+  display: flex; align-items: center; justify-content: center;
+}
+.logo-text .t1 { color: white; font-size: 15px; font-weight: 800; letter-spacing: -0.3px; display: block; }
+.logo-text .t2 { color: rgba(255,255,255,0.8); font-size: 11px; display: block; }
+.portal-nav { display: flex; align-items: center; gap: 2px; margin: 0 auto; }
+.nav-link {
+  display: flex; align-items: center; gap: 6px;
+  color: rgba(255,255,255,0.65); font-size: 13.5px;
+  padding: 0 14px; height: 70px;
+  text-decoration: none; white-space: nowrap;
+  border-bottom: 3px solid transparent;
+}
+.nav-link:hover { color: rgba(255,255,255,0.9); }
+.nav-link.active { color: white; font-weight: 600; border-bottom-color: #00CCBC; }
+.portal-user { display: flex; align-items: center; gap: 9px; flex-shrink: 0; color: white; }
+.portal-user-icon {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  display: flex; align-items: center; justify-content: center;
+}
+.pun { font-size: 13px; font-weight: 600; }
+.puc { font-size: 11px; opacity: 0.72; }
+
+/* ─── BANNER ─── */
+.portal-banner {
+  background: #008880; padding: 10px 24px;
+  display: flex; align-items: center; gap: 14px;
+}
+.banner-icon-wrap {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+.banner-title { color: #ccfff9; font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+.banner-body  { color: rgba(255,255,255,0.82); font-size: 12.5px; line-height: 1.45; }
+
+/* ─── PAGE ─── */
+.page { padding: 36px 28px 60px; }
+
+.page-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 28px;
+}
+.page-title { font-size: 28px; font-weight: 800; color: #1a1a1a; }
+.btn-row { display: flex; gap: 10px; align-items: center; }
+
+.btn-outline {
+  display: flex; align-items: center; gap: 7px;
+  padding: 9px 18px; border: 1.5px solid #d0d0d0;
+  border-radius: 8px; background: white;
+  font-size: 13px; font-weight: 500; color: #333; cursor: pointer;
+}
+.btn-teal {
+  display: flex; align-items: center; gap: 7px;
+  padding: 9px 18px; border: none;
+  border-radius: 8px; background: #00CCBC;
+  font-size: 13px; font-weight: 700; color: #004d47; cursor: pointer;
+}
+
+/* ─── FILTER CARD ─── */
+.filter-card {
+  background: white; border: 1px solid #e5e5e5;
+  border-radius: 12px 12px 0 0; border-bottom: none;
+  padding: 16px 20px;
+  display: flex; align-items: flex-end; gap: 28px; flex-wrap: wrap;
+}
+.fg { display: flex; flex-direction: column; gap: 8px; }
+.fg-label { font-size: 12px; color: #888; font-weight: 500; }
+.chips { display: flex; gap: 6px; }
+.chip {
+  display: flex; align-items: center; gap: 5px;
+  padding: 6px 14px; border-radius: 20px;
+  font-size: 13px; cursor: pointer;
+  border: 1.5px solid #d0d0d0;
+  background: white; color: #444; font-weight: 500;
+  white-space: nowrap;
+}
+.chip.on {
+  background: #00CCBC; border-color: #00CCBC;
+  color: #004d47; font-weight: 700;
+}
+.chip svg { flex-shrink: 0; }
+.group-sel {
+  padding: 8px 32px 8px 12px;
+  border: 1.5px solid #d0d0d0; border-radius: 8px;
+  font-size: 13px; color: #333; background: white;
+  min-width: 190px; cursor: pointer; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 10px center;
+}
+.search-box {
+  padding: 8px 14px 8px 36px;
+  border: 1.5px solid #d0d0d0; border-radius: 8px;
+  font-size: 13px; color: #333; background: white;
+  width: 230px; outline: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none'%3E%3Ccircle cx='6' cy='6' r='5' stroke='%23bbb' stroke-width='1.5'/%3E%3Cpath d='M10 10l3 3' stroke='%23bbb' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: 12px center;
+}
+.search-box::placeholder { color: #bbb; }
+.search-group { margin-left: auto; }
+
+/* ─── TABLE ─── */
+.table-wrap {
+  background: white; border: 1px solid #e5e5e5;
+  border-radius: 0 0 12px 12px; overflow: hidden;
+}
+table { width: 100%; border-collapse: collapse; }
+thead tr { border-bottom: 2px solid #e8e8e8; }
+th {
+  text-align: left; padding: 12px 18px;
+  font-size: 13px; font-weight: 700; color: #333;
+  white-space: nowrap; background: white;
+}
+th.plus-th {
+  color: #006460;
+  background: #f2fefe;
+  border-left: 2px solid #c8f0ed;
+}
+td {
+  padding: 14px 18px; font-size: 13.5px;
+  border-bottom: 1px solid #f2f2f2; vertical-align: middle;
+}
+td.plus-td {
+  background: #fafffe; border-left: 2px solid #ddf6f4;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #fafafa; }
+tr:hover td.plus-td { background: #f0fefd; }
+
+.cb-cell { width: 40px; }
+input[type="checkbox"] { width: 15px; height: 15px; accent-color: #00CCBC; cursor: pointer; }
+
+.user-name  { font-weight: 700; color: #006460; font-size: 13.5px; display: block; }
+.user-email { font-size: 12px; color: #888; display: block; margin-top: 1px; }
+
+.group-link { color: #00897A; font-size: 13px; text-decoration: none; font-weight: 500; }
+.group-link:hover { text-decoration: underline; }
+
+.status-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 11px; border-radius: 20px;
+  font-size: 12.5px; font-weight: 600; white-space: nowrap;
+}
+.s-active   { background: #e0f5f0; color: #006460; }
+.s-active   svg { color: #00897A; }
+.s-invited  { background: #fef5e0; color: #8a6200; }
+
+.edit-link {
+  display: inline-flex; align-items: center; gap: 5px;
+  color: #00897A; font-size: 13px; font-weight: 600;
+  text-decoration: none; cursor: pointer;
+}
+.edit-link:hover { text-decoration: underline; }
+
+/* ─── Plus toggle ─── */
+.plus-cell { display: flex; align-items: center; gap: 8px; }
+.toggle {
+  width: 38px; height: 21px; border-radius: 11px;
+  position: relative; cursor: pointer; flex-shrink: 0;
+}
+.toggle.on  { background: #00CCBC; }
+.toggle.off { background: #d5d5d5; }
+.toggle-knob {
+  position: absolute; top: 3px;
+  width: 15px; height: 15px; border-radius: 50%;
+  background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.toggle.on  .toggle-knob { left: 20px; }
+.toggle.off .toggle-knob { left: 3px; }
+.plus-lbl { font-size: 12.5px; }
+.plus-lbl.on  { color: #00897A; font-weight: 600; }
+.plus-lbl.off { color: #bbb; }
+
+.chat-fab {
+  position: fixed; bottom: 28px; right: 28px;
+  width: 46px; height: 46px; background: #00CCBC;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+}
+</style>
+</head>
+<body>
+
+<!-- Portal Header -->
+<header class="portal-header">
+  <a class="logo" href="#">
+    <div class="logo-mark">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3C7 3 3 7 3 12s4 9 9 9 9-4 9-9-4-9-9-9zm0 4c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm0 10c-2.5 0-4.7-1.3-6-3.2.03-2 4-3.1 6-3.1s5.97 1.1 6 3.1C16.7 15.7 14.5 17 12 17z" fill="white"/></svg>
+    </div>
+    <div class="logo-text">
+      <span class="t1">deliveroo</span>
+      <span class="t2">for work</span>
+    </div>
+  </a>
+  <nav class="portal-nav">
+    <a class="nav-link active" href="#">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Users
+    </a>
+    <a class="nav-link" href="#">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      User groups
+    </a>
+    <a class="nav-link" href="#">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>
+      Meal allowances
+    </a>
+    <a class="nav-link" href="#">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+      Catering
+    </a>
+    <a class="nav-link" href="#">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      Orders
+    </a>
+    <a class="nav-link" href="mockup-plus-for-business-page.html">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      Plus for Business
+    </a>
+  </nav>
+  <div class="portal-user">
+    <div class="portal-user-icon">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </div>
+    <div>
+      <div class="pun">Olivia Jones &#9660;</div>
+      <div class="puc">McKinsey UK</div>
+    </div>
+  </div>
+</header>
+
+<!-- Banner -->
+<div class="portal-banner">
+  <div class="banner-icon-wrap">🚀</div>
+  <div>
+    <div class="banner-title">Exciting News</div>
+    <div class="banner-body">You can now add an expense memo to meal allowances. Employees can add a purchase note to explain the purpose of their order — set it as optional or required when creating or editing an allowance.</div>
+  </div>
+</div>
+
+<!-- Page -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-title">Users</div>
+    <div class="btn-row">
+      <button class="btn-outline">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download
+      </button>
+      <button class="btn-outline">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Bulk upload users
+      </button>
+      <button class="btn-teal">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><line x1="12" y1="3" x2="12" y2="9"/><line x1="9" y1="6" x2="15" y2="6"/></svg>
+        Add new user
+      </button>
+    </div>
+  </div>
+
+  <!-- Filters (exact from PDF) -->
+  <div class="filter-card">
+    <div class="fg">
+      <div class="fg-label">Filtered by user status</div>
+      <div class="chips">
+        <div class="chip on">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Active
+        </div>
+        <div class="chip">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Invited
+        </div>
+      </div>
+    </div>
+    <div class="fg">
+      <div class="fg-label">Role</div>
+      <div class="chips">
+        <div class="chip on">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          All
+        </div>
+        <div class="chip">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Member
+        </div>
+        <div class="chip">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M5.34 18.66l-1.41 1.41M20 12h-2M6 12H4M19.07 19.07l-1.41-1.41M5.34 5.34L3.93 3.93M12 20v-2M12 6V4"/></svg>
+          Admin
+        </div>
+      </div>
+    </div>
+    <div class="fg">
+      <div class="fg-label">Filter users by group</div>
+      <select class="group-sel">
+        <option>All Groups</option>
+        <option>McKinsey &amp; Company group</option>
+        <option>Security Team group</option>
+        <option>Catering group</option>
+      </select>
+    </div>
+    <div class="fg search-group">
+      <div class="fg-label">Search for an 'active' user</div>
+      <input class="search-box" type="text" placeholder="e.g. User's name or email">
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="cb-cell"><input type="checkbox"></th>
+          <th>User</th>
+          <th>Groups</th>
+          <th>Status</th>
+          <th>Employee ID</th>
+          <th>Dept Code</th>
+          <th class="plus-th">Plus for Business</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td class="cb-cell"><input type="checkbox"></td>
+          <td>
+            <span class="user-name">Shamama Muhit</span>
+            <span class="user-email">shamama_muhit@mckinsey.com</span>
+          </td>
+          <td><a class="group-link" href="#">McKinsey &amp; Company group</a></td>
+          <td>
+            <span class="status-pill s-active">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Active
+            </span>
+          </td>
+          <td style="color:#555">308373</td>
+          <td style="color:#aaa">---</td>
+          <td class="plus-td">
+            <div class="plus-cell">
+              <div class="toggle on"><div class="toggle-knob"></div></div>
+              <span class="plus-lbl on">Active</span>
+            </div>
+          </td>
+          <td>
+            <a class="edit-link" href="#">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Edit
+            </a>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="cb-cell"><input type="checkbox"></td>
+          <td>
+            <span class="user-name">Fiya Shah</span>
+            <span class="user-email">fiya_shah@mckinsey.com</span>
+          </td>
+          <td><a class="group-link" href="#">McKinsey &amp; Company group</a></td>
+          <td>
+            <span class="status-pill s-active">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Active
+            </span>
+          </td>
+          <td style="color:#555">301298</td>
+          <td style="color:#aaa">---</td>
+          <td class="plus-td">
+            <div class="plus-cell">
+              <div class="toggle on"><div class="toggle-knob"></div></div>
+              <span class="plus-lbl on">Active</span>
+            </div>
+          </td>
+          <td><a class="edit-link" href="#"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</a></td>
+        </tr>
+
+        <tr>
+          <td class="cb-cell"><input type="checkbox"></td>
+          <td>
+            <span class="user-name">Phil Jeapes</span>
+            <span class="user-email">philip_jeapes@mckinsey.com</span>
+          </td>
+          <td><a class="group-link" href="#">McKinsey &amp; Company group</a></td>
+          <td>
+            <span class="status-pill s-active">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Active
+            </span>
+          </td>
+          <td style="color:#555">51234</td>
+          <td style="color:#aaa">---</td>
+          <td class="plus-td">
+            <div class="plus-cell">
+              <div class="toggle on"><div class="toggle-knob"></div></div>
+              <span class="plus-lbl on">Active</span>
+            </div>
+          </td>
+          <td><a class="edit-link" href="#"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</a></td>
+        </tr>
+
+        <tr>
+          <td class="cb-cell"><input type="checkbox"></td>
+          <td>
+            <span class="user-name">Ria Ruppeldtova</span>
+            <span class="user-email">ria_ruppeldtova@mckinsey.com</span>
+          </td>
+          <td><a class="group-link" href="#">McKinsey &amp; Company group</a></td>
+          <td>
+            <span class="status-pill s-active">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Active
+            </span>
+          </td>
+          <td style="color:#555">166975</td>
+          <td style="color:#aaa">---</td>
+          <td class="plus-td">
+            <div class="plus-cell">
+              <div class="toggle on"><div class="toggle-knob"></div></div>
+              <span class="plus-lbl on">Active</span>
+            </div>
+          </td>
+          <td><a class="edit-link" href="#"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</a></td>
+        </tr>
+
+        <tr>
+          <td class="cb-cell"><input type="checkbox"></td>
+          <td>
+            <span class="user-name">Mark Jordan</span>
+            <span class="user-email">mark_jordan@mckinsey.com</span>
+          </td>
+          <td><a class="group-link" href="#">McKinsey &amp; Company group</a></td>
+          <td>
+            <span class="status-pill s-active">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Active
+            </span>
+          </td>
+          <td style="color:#555">338845</td>
+          <td style="color:#aaa">---</td>
+          <td class="plus-td">
+            <div class="plus-cell">
+              <div class="toggle off"><div class="toggle-knob"></div></div>
+              <span class="plus-lbl off">---</span>
+            </div>
+          </td>
+          <td><a class="edit-link" href="#"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</a></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="chat-fab">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+</div>
+
+</body>
+</html>
